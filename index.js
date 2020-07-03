@@ -30,7 +30,6 @@ let usuarios = [
 ];
 
 let tarefas = [];
-let id = 0;
 
 app.get("/", (req, res, next) => {
     res.json({message: "faça login em: /login"});
@@ -39,8 +38,7 @@ app.get("/", (req, res, next) => {
 app.post("/login", (req, res, next) => {
   usuarios.forEach((item, i) => {
     if(item["usuario"] == req.body.usuario && item["senha"] == req.body.senha){
-      id++;
-      let token = jwt.sign({id}, process.env.SECRET, {expiresIn: 300 });
+      let token = jwt.sign({item}, process.env.SECRET, {expiresIn: 300 });
       return res.json({auth: true, token: token});
     }
   });
